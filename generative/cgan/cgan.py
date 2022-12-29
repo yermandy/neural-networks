@@ -163,8 +163,8 @@ for epoch in range(args.n_epochs):
     for i, (imgs, labels) in enumerate(tqdm(dataloader)):
 
         # Adversarial ground truths
-        valid = torch.ones((len(imgs), 1)).to(args.device, non_blocking=True)
-        fake = torch.zeros((len(imgs), 1)).to(args.device, non_blocking=True)
+        valid = torch.ones((len(imgs), 1), device=args.device)
+        fake = torch.zeros((len(imgs), 1), device=args.device)
 
         # Configure input
         real_imgs = imgs.to(args.device, non_blocking=True)
@@ -181,7 +181,7 @@ for epoch in range(args.n_epochs):
         optimizer_G.zero_grad()
 
         # Sample noise as generator input
-        z = torch.randn((len(imgs), args.latent_dim)).to(args.device)
+        z = torch.randn((len(imgs), args.latent_dim), device=args.device)
 
         # Generate a batch of images
         gen_imgs = generator(z, labels)
